@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Studies;
+use App\Entity\Study;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Studies|null find($id, $lockMode = null, $lockVersion = null)
- * @method Studies|null findOneBy(array $criteria, array $orderBy = null)
- * @method Studies[]    findAll()
- * @method Studies[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Study|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Study|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Study[]    findAll()
+ * @method Study[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class StudiesRepository extends ServiceEntityRepository
+class StudyRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Studies::class);
+        parent::__construct($registry, Study::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Studies $entity, bool $flush = true): void
+    public function add(Study $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class StudiesRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Studies $entity, bool $flush = true): void
+    public function remove(Study $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,7 +46,7 @@ class StudiesRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Studies[] Returns an array of Studies objects
+    //  * @return Study[] Returns an array of Study objects
     //  */
     /*
     public function findByExampleField($value)
@@ -63,7 +63,7 @@ class StudiesRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Studies
+    public function findOneBySomeField($value): ?Study
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')

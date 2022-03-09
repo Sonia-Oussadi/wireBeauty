@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -42,6 +44,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'datetime_immutable')]
     private $updated_at;
+
+    #[ORM\OneToMany(targetEntity: Study::class, mappedBy: "user")]
+    private $studies;
+
+    public function __construct()
+    {
+        $this->studies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -183,5 +193,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+
+    /**
+     * @return Collection|Study[]
+     */
+    public function getStudies(): Collection
+    {
+        return $this->studies;
     }
 }
