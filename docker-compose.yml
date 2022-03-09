@@ -64,8 +64,9 @@ services:
     depends_on:
       - php
     ports:
-      - "88:80"
+      - "89:80"
       - "449:443"
+
 volumes:
   db-data: { }
   app-cache: { }
