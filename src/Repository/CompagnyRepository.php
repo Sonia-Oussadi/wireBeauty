@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Template;
+use App\Entity\Compagny;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Template|null find($id, $lockMode = null, $lockVersion = null)
- * @method Template|null findOneBy(array $criteria, array $orderBy = null)
- * @method Template[]    findAll()
- * @method Template[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Compagny|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Compagny|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Compagny[]    findAll()
+ * @method Compagny[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TemplateRepository extends ServiceEntityRepository
+class CompagnyRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Template::class);
+        parent::__construct($registry, Compagny::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Template $entity, bool $flush = true): void
+    public function add(Compagny $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class TemplateRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Template $entity, bool $flush = true): void
+    public function remove(Compagny $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,15 +46,15 @@ class TemplateRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Template[] Returns an array of Template objects
+    //  * @return Compagny[] Returns an array of Compagny objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
+            ->orderBy('c.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -63,10 +63,10 @@ class TemplateRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Template
+    public function findOneBySomeField($value): ?Compagny
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

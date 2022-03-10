@@ -50,7 +50,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime_immutable')]
     private $updated_at;
 
-    // #[ORM\OneToMany(targetEntity: Study::class, mappedBy: "user")]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private $deleted_at;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $country;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $newsletter;
+
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Study::class)]
+    private $studies;
+
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Bill::class)]
+    private $bills;
+
+    public function __construct()
+    {
+        $this->studies = new ArrayCollection();
+        $this->bills = new ArrayCollection();
+    }
+
+    // #[ORM\OneToMany(targetEntity: Study::class, mappedBy: "User")]
     // private $studies;
 
     // public function __construct()
@@ -208,4 +229,100 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     // {
     //     return $this->studies;
     // }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deleted_at;
+    }
+
+    public function setDeletedAt(?\DateTimeImmutable $deleted_at): self
+    {
+        $this->deleted_at = $deleted_at;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getNewsletter(): ?bool
+    {
+        return $this->newsletter;
+    }
+
+    public function setNewsletter(?bool $newsletter): self
+    {
+        $this->newsletter = $newsletter;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Study>
+     */
+    public function getStudies(): Collection
+    {
+        return $this->studies;
+    }
+
+    public function addStudy(Study $study): self
+    {
+        if (!$this->studies->contains($study)) {
+            $this->studies[] = $study;
+            $study->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudy(Study $study): self
+    {
+        if ($this->studies->removeElement($study)) {
+            // set the owning side to null (unless already changed)
+            if ($study->getUserId() === $this) {
+                $study->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bill>
+     */
+    public function getBills(): Collection
+    {
+        return $this->bills;
+    }
+
+    public function addBill(Bill $bill): self
+    {
+        if (!$this->bills->contains($bill)) {
+            $this->bills[] = $bill;
+            $bill->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBill(Bill $bill): self
+    {
+        if ($this->bills->removeElement($bill)) {
+            // set the owning side to null (unless already changed)
+            if ($bill->getUserId() === $this) {
+                $bill->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
 }
