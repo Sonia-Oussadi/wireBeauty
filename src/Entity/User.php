@@ -2,17 +2,22 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\TimestampTrait;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    //use TimestampTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -45,13 +50,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime_immutable')]
     private $updated_at;
 
-    #[ORM\OneToMany(targetEntity: Study::class, mappedBy: "user")]
-    private $studies;
+    // #[ORM\OneToMany(targetEntity: Study::class, mappedBy: "user")]
+    // private $studies;
 
-    public function __construct()
-    {
-        $this->studies = new ArrayCollection();
-    }
+    // public function __construct()
+    // {
+    //     $this->studies = new ArrayCollection();
+    // }
 
     public function getId(): ?int
     {
@@ -196,11 +201,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    /**
-     * @return Collection|Study[]
-     */
-    public function getStudies(): Collection
-    {
-        return $this->studies;
-    }
+    // /**
+    //  * @return Collection|Study[]
+    //  */
+    // public function getStudies(): Collection
+    // {
+    //     return $this->studies;
+    // }
 }
