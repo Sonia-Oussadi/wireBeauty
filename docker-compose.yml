@@ -13,6 +13,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
       POSTGRES_USER: postgres
+      POSTGRES_HOST: postgres
     volumes:
       - db-data:/var/lib/postgresql/data:rw
     ports:
@@ -23,7 +24,7 @@ services:
   adminer:
     image: adminer
     ports:
-      - 8081:8080
+      - "8081:8080"
     depends_on:
       - db
 
@@ -49,7 +50,7 @@ services:
 
   mailer:
     image: schickling/mailcatcher
-    ports: [ 1025, 1080 ]
+    ports: [ "1025", "1080" ]
 
   nginx:
     build:
@@ -63,9 +64,9 @@ services:
     depends_on:
       - php
     ports:
-      - "80:80"
-      - "443:443"
+      - "89:80"
+      - "449:443"
 
 volumes:
-  db-data: {}
-  app-cache: {}
+  db-data: { }
+  app-cache: { }

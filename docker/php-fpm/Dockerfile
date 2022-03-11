@@ -18,4 +18,7 @@ WORKDIR /var/www
 
 CMD composer i -o ; wait-for-it db:5432 -- bin/console doctrine:migrations:migrate ;  php-fpm
 
+RUN curl -sS https://get.symfony.com/cli/installer | bash
+RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+
 EXPOSE 9000
