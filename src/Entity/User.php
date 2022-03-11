@@ -65,6 +65,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Bill::class)]
     private $bills;
 
+    #[ORM\OneToOne(inversedBy: 'owner', targetEntity: Compagny::class, cascade: ['persist', 'remove'])]
+    private $compagny;
+
     public function __construct()
     {
         $this->studies = new ArrayCollection();
@@ -322,6 +325,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $bill->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompagny(): ?Compagny
+    {
+        return $this->compagny;
+    }
+
+    public function setCompagny(?Compagny $compagny): self
+    {
+        $this->compagny = $compagny;
 
         return $this;
     }
