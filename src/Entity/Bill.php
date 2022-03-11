@@ -19,7 +19,7 @@ class Bill
     private $number;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'bills')]
-    private $user_id;
+    private $owner;
 
     #[ORM\Column(type: 'float', nullable: true)]
     private $total;
@@ -27,7 +27,7 @@ class Bill
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $created_at;
 
-    #[ORM\OneToMany(mappedBy: 'bill_id', targetEntity: Order::class)]
+    #[ORM\OneToMany(mappedBy: 'bill', targetEntity: Order::class)]
     private $orders;
 
     public function __construct()
@@ -52,14 +52,14 @@ class Bill
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getOwner(): ?User
     {
-        return $this->user_id;
+        return $this->owner;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setOwner(?User $owner): self
     {
-        $this->user_id = $user_id;
+        $this->owner = $owner;
 
         return $this;
     }
@@ -100,7 +100,7 @@ class Bill
     {
         if (!$this->orders->contains($order)) {
             $this->orders[] = $order;
-            $order->setBillId($this);
+            $order->setBill($this);
         }
 
         return $this;
@@ -110,8 +110,8 @@ class Bill
     {
         if ($this->orders->removeElement($order)) {
             // set the owning side to null (unless already changed)
-            if ($order->getBillId() === $this) {
-                $order->setBillId(null);
+            if ($order->getBill() === $this) {
+                $order->setBill(null);
             }
         }
 

@@ -18,10 +18,10 @@ class Order
     private $price;
 
     #[ORM\ManyToOne(targetEntity: Study::class, inversedBy: 'orders')]
-    private $study_id;
+    private $study;
 
     #[ORM\ManyToOne(targetEntity: Bill::class, inversedBy: 'orders')]
-    private $bill_id;
+    private $bill;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $created_at;
@@ -46,26 +46,26 @@ class Order
         return $this;
     }
 
-    public function getStudyId(): ?Study
+    public function getStudy(): ?Study
     {
-        return $this->study_id;
+        return $this->study;
     }
 
-    public function setStudyId(?Study $study_id): self
+    public function setStudy(?Study $study): self
     {
-        $this->study_id = $study_id;
+        $this->study = $study;
 
         return $this;
     }
 
-    public function getBillId(): ?Bill
+    public function getBill(): ?Bill
     {
-        return $this->bill_id;
+        return $this->bill;
     }
 
-    public function setBillId(?Bill $bill_id): self
+    public function setBill(?Bill $bill): self
     {
-        $this->bill_id = $bill_id;
+        $this->bill = $bill;
 
         return $this;
     }

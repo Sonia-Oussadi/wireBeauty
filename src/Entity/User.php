@@ -59,10 +59,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $newsletter;
 
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Study::class)]
+    #[ORM\OneToMany(mappedBy: 'buyer', targetEntity: Study::class)]
     private $studies;
 
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Bill::class)]
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Bill::class)]
     private $bills;
 
     public function __construct()
@@ -278,7 +278,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->studies->contains($study)) {
             $this->studies[] = $study;
-            $study->setUserId($this);
+            $study->setBuyer($this);
         }
 
         return $this;
@@ -288,8 +288,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->studies->removeElement($study)) {
             // set the owning side to null (unless already changed)
-            if ($study->getUserId() === $this) {
-                $study->setUserId(null);
+            if ($study->getBuyer() === $this) {
+                $study->setBuyer(null);
             }
         }
 
@@ -308,7 +308,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->bills->contains($bill)) {
             $this->bills[] = $bill;
-            $bill->setUserId($this);
+            $bill->setOwner($this);
         }
 
         return $this;
@@ -318,8 +318,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->bills->removeElement($bill)) {
             // set the owning side to null (unless already changed)
-            if ($bill->getUserId() === $this) {
-                $bill->setUserId(null);
+            if ($bill->getOwner() === $this) {
+                $bill->setOwner(null);
             }
         }
 
