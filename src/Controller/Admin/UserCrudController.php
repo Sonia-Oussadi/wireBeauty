@@ -3,9 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\DateImmutableType;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\Expr\From;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -14,15 +16,30 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email as MimeEmail;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\PasswordHasher\PasswordHasherInterface;
+
 
 class UserCrudController extends AbstractCrudController
 {
     private UserPasswordHasherInterface $passwordHasher;
+    private MailerInterface $mailer;
+    private UserRepository $userRepository;
     public function __construct(UserPasswordHasherInterface $passwordHasher){
 
         $this->passwordHasher = $passwordHasher;
+    }
+
+    public function sendEmail(MailerInterface $mailer,$entityInstance){
+        $user = $this->getUser();
+        $identifier = $user->getUserIdentifier();
+        $email = new MimeEmail();
+        $email ->From($identifier)
+        ->to($entityInstance->getEmail())
+        ->subject('Yoour count was created')
+        ->html('<p>This is your Identifier</p>'.$entityInstance->getEmail().'Your password'.$entityInstance->getPassword());
+        $mailer->send($email);
     }
     
     public static function getEntityFqcn(): string
@@ -48,6 +65,7 @@ class UserCrudController extends AbstractCrudController
         $entityInstance->setPassword($encoder);
         $entityInstance->setCreatedAt(new DateTimeImmutable());
         $entityInstance->setUpdatedAt(new DateTimeImmutable());
+        $this->sendEmail($this->mailer,$entityInstance);
         parent::persistEntity($entityManager,$entityInstance);
     }
 
