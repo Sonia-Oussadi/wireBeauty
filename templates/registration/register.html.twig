@@ -4,55 +4,100 @@
 {% endblock %}
 
 {% block body %}
-	<div class="h-100 gradient-form" style="background-color: #eee;">
-		<div class="container py-5 h-100">
-			<div class="row d-flex justify-content-center align-items-center h-100">
-				<div class="col-xl-10">
-					<div class="card rounded-3 text-black">
-						<div class="row g-0">
-							<div class="col-lg-6">
-								<div class="card-body p-md-5 mx-md-4">
+    <body>
 
-									<div class="text-center">
-										<img src="{{asset('img/logo.png')}}" style="width: 185px;" alt="logo">
-										<h4 class="mt-1 mb-5 pb-1">We are The Wired Beauty Team</h4>
-									</div>
-									<h1 class="h3 mb-3 font-weight-normal">Register</h1>
-									{{ form_start(registrationForm) }}
-									{{ form_label(registrationForm.email) }}
-									{{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
-									<br>
-									{{ form_label(registrationForm.firstName) }}
-									{{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control'}}) }}
-									<br>
-									{{ form_label(registrationForm.lastName) }}
-									{{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-control'}}) }}
-									<br>
-									{{ form_label(registrationForm.plainPassword) }}
-									{{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
-									<br>
-									{{ form_row(registrationForm.agreeTerms) }}
+    <!-- CONTENT -->
+    <section>
+        <div class="container d-flex flex-column">
+            <div class="row align-items-center justify-content-center gx-0 min-vh-100">
+                <div class="col-12 col-md-6 col-lg-4 py-8 py-md-11">
 
-									{{ form_end(registrationForm) }}
+                    <!-- Heading -->
+                    <h1 class="mb-0 fw-bold">
+                        Sign up
+                    </h1>
 
+                    <!-- Text -->
+                    <p class="mb-6 text-muted">
+                        Simplify your workflow in minutes.
+                    </p>
 
-									<div class="d-flex align-items-center justify-content-center pb-4">
-										<p class="mb-0 me-2">Already have an account?</p>
-										<a type="button" href="{{path('app_login')}}" class="btn btn-outline-danger">Log In</a>
-									</div>
+                    <!-- Form -->
+                    <form class="mb-6">
+                        {{ form_start(registrationForm) }}
 
-								</div>
-							</div>
-							<div class="col-lg-6 d-flex align-items-center gradient-custom-2">
-								<div class="text-white px-3 py-4 p-md-5 mx-md-4">
-									<h4 class="mb-4">We are more than just a company</h4>
-									<p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label class="form-label" for="email">
+                                {{ form_label(registrationForm.email) }}
+                            </label>
+                            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
+                        <!-- FirstName -->
+                        <div class="form-group">
+                            <label class="form-label" for="name">
+                                {{ form_label(registrationForm.firstName) }}
+                            </label>
+                            {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
+                        <!-- LastName -->
+                        <div class="form-group">
+                            <label class="form-label" for="name">
+                                {{ form_label(registrationForm.lastName) }}
+                            </label>
+                            {{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group mb-5">
+                            <label>
+                                {{ form_label(registrationForm.plainPassword) }}
+                            </label>
+                            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
+                        <div class="form-group mb-8">
+                            {{ form_row(registrationForm.agreeTerms) }}
+                        </div>
+                        <!-- Aggred terms -->
+                        <!-- Submit -->
+                        <button class="btn w-100 btn-primary" type="submit" href="{{ path('app_login') }}">
+                            Sign up
+                        </button>
+
+                    </form>
+                    <!-- Text -->
+
+                </div>
+                <div class="col-lg-7 offset-lg-1 align-self-stretch d-none d-lg-block">
+
+                    <!-- Image -->
+                    <div class="h-100 w-cover bg-cover"
+                         style="background-image: url(https://picsum.photos/1000/1384);"></div>
+
+                    <!-- Shape -->
+                    <div class="shape shape-start shape-fluid-y text-white">
+                        <svg viewBox="0 0 100 1544" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h100v386l-50 772v386H0V0z" fill="currentColor"/>
+                        </svg>
+                    </div>
+
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <!-- Map JS -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+
+    <!-- Vendor JS -->
+    <script src="./assets/js/vendor.bundle.js"></script>
+
+    <!-- Theme JS -->
+    <script src="./assets/js/theme.bundle.js"></script>
+
+    </body>
 {% endblock %}

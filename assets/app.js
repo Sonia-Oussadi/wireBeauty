@@ -5,11 +5,12 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
-// any CSS you import will output into a single css file (app.css in this case)
+// any CSS you import will output into a single css file (app.scss in this case)
 import './styles/app.scss';
 
-// or, specify which plugins you need:
-import { Tooltip, Toast, Popover } from 'bootstrap';
+import {Tooltip, Toast, Popover} from "bootstrap";
 
+import './js/theme';
 // start the Stimulus application
 import './bootstrap';
+

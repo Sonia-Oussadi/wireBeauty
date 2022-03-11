@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% extends 'base.html.twig' %}
+
+    {% block body %}
+        <div class="container">
+            <h1 class="mt-3 mb-4">Products</h1>
+            <div class="row">
+                {% for study in studies %}
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+{#
+                            <img src="https://via.placeholder.com/200x150" alt="{{ study.name }}"
+                                 class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ study.name }}</h5>
+                                <p class="card-text">{{ study.description }}</p>
+                                <div class="d-flex justify-content-between align-item-center">
+                                    <a href="#" class="btn btn-dark">View details</a>
+                                    <span class="h5 mt-auto">{{ study.price }} €</span>
+#}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}
