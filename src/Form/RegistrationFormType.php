@@ -21,64 +21,55 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('email', EmailType::class, [
-            'label' => 'Email :',
-            'constraints' => new Length(2,8),  
-            'attr' => [
-                'placeholder' => 'exemple@mail.com'
-            ]
-        ])
-        ->add('plainPassword', RepeatedType::class, [
-            'label' => 'Mot de passe :',
-            'type' => PasswordType::class,
-            'invalid_message' => 'Le mot de passe et le mot de passe de confirmation doivent être identiques.',
-            'options' => ['attr' => ['class' => 'password-field']],
-            'required' => true,
-            'first_options'  => ['label' => 'Mot de passe :'],
-            'second_options' => ['label' => 'Répéter le mot de passe :'],
-            'mapped' => false,
-            'attr'=>['class'=>'form-control'],
-            'constraints' => [
-                new NotBlank([  
-                    'message' => 'Veuillez entrer un mot de passe',
-                ]),
-                new Length([
-                    'min' => 6,
-                    'minMessage' => 'Votre mot de passe doit être au moins  {{ limit }} Caractère ',
-                    // max length allowed by Symfony for security reasons
-                    'max' => 4096,
-                ]),
-            ],
-        ])
-        ->add('firstName', TextType::class, [
-            'label' => 'Prénom :',
-            'constraints' => new Length(2,2), 
-            'attr' => [
-                'placeholder' => 'Veuillez saisir votre prénom'
-            ]
-        ])
-        
-        ->add('lastName', TextType::class, [
-            'label' => 'Nom :',
-            'constraints' => new Length(2,2),  
-            'attr' => [
-                'placeholder' => 'Veuillez saisir votre nom'
-            ]
-        ])
-        ->add('agreeTerms', CheckboxType::class, [
-            'label' => "J'ai lu et j'accepte les conditions générales d'utilisation",
-            'mapped' => false,
-            'constraints' => [
-                new IsTrue([ 
-                    'message' => "Veilliez vous accepter les conditions générales d'utilisation.",
-                ]),
-            ],
-        ])
-        ->add('submit', SubmitType::class, [
-            'attr' => ['class' => 'btn btn-primary'],
-            'label' => "S'inscrire",
-        ])
-        ;
+            ->add('email', EmailType::class, [
+                'label' => 'Email :',
+                'constraints' => new Length(2, 8),
+                'attr' => [
+                    'placeholder' => 'exemple@mail.com'
+                ]
+            ])
+            ->add('plainPassword', PasswordType::class, [
+                'mapped'=>false,
+                'attr'=> ['placeholder'=>'indiquez votre mot de passe'],
+                'constraints'=>[
+                    new NotBlank([
+                        'message'=> 'Please enter a password'
+                    ]),
+                    new Length([
+                        'min'=>6,
+                        'minMessage'=> 'Your password should be at least 6 characters',
+                        'max'=>4096
+                    ])
+                ]
+            ])
+
+            ->add('firstName', TextType::class, [
+                'label' => 'Prénom :',
+                'constraints' => new Length(2, 2),
+                'attr' => [
+                    'placeholder' => 'Veuillez saisir votre prénom'
+                ]
+            ])
+            ->add('lastName', TextType::class, [
+                'label' => 'Nom :',
+                'constraints' => new Length(2, 2),
+                'attr' => [
+                    'placeholder' => 'Veuillez saisir votre nom'
+                ]
+            ])
+            ->add('agreeTerms', CheckboxType::class, [
+                'label' => "J'ai lu et j'accepte les conditions générales d'utilisation",
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue([
+                        'message' => "Veilliez vous accepter les conditions générales d'utilisation.",
+                    ]),
+                ],
+            ])
+            ->add('submit', SubmitType::class, [
+                'attr' => ['class' => 'btn btn-primary'],
+                'label' => "S'inscrire",
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
