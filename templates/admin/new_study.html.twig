@@ -1,0 +1,11 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}New Study{% endblock %}
+
+{% block body %}
+    <h1>Create new Study</h1>
+
+    {{ include('admin/_form.html.twig') }}
+
+    <a href="{{ path('dashboard_studies') }}">back to list</a>
+{% endblock %}

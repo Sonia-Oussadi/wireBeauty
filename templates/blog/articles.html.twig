@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block body %}
+	{% for article in articles %}
+
+		<div class="container">
+			<div class="grid mt-5 shadow rounded border-5 pt-2 active pb-0 px-3">
+				<h2 class="text-center">{{article.title}}</h2>
+				<p>
+					{{article.content}}
+				</p>
+				<p>{{article.category}}</p>
+				<a class="btn btn-primary" href="{{ path('blog_article', { id: article.id }) }}">
+					Show
+				</a>
+			</div>
+
+		</div>
+
+
+	{% endfor %}
+{% endblock %}

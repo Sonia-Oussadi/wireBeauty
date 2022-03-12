@@ -1121,20 +1121,19 @@
                         </div>
                     </li>
 
-                {% endif %}
-                {% if is_granted('ROLE_USER') %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDocumentation" data-bs-toggle="dropdown"
-                           href="{{ path('admin') }}" aria-haspopup="true" aria-expanded="false">
-                            Dashboard
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-md" aria-labelledby="navbarDocumentation">
-                            <div class="list-group list-group-flush">
-                                <a
-                                        class="list-group-item" href="{{ path('admin') }}">
-                                    <!-- Content -->
-                                    <div
-                                            class="ms-4">
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" id="navbarDocumentation" data-bs-toggle="dropdown" href="{{path('admin')}}" aria-haspopup="true" aria-expanded="false">
+									Dashboard
+								</a>
+								<div class="dropdown-menu dropdown-menu-md" aria-labelledby="navbarDocumentation">
+									<div class="list-group list-group-flush">
+										<a
+											class="list-group-item" href="{{path('admin')}}">
+											<!-- Content -->
+											<div
+												class="ms-4">
 
                                         <!-- Heading -->
                                         <h6 class="fw-bold text-uppercase text-primary mb-0">

@@ -19,8 +19,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email as MimeEmail;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-
+#[IsGranted('ROLE_ADMIN')]
 class UserCrudController extends AbstractCrudController
 {
     private UserPasswordHasherInterface $passwordHasher;
@@ -37,7 +38,7 @@ class UserCrudController extends AbstractCrudController
         $email = new MimeEmail();
         $email ->From($identifier)
         ->to($entityInstance->getEmail())
-        ->subject('Yoour count was created')
+        ->subject('Your account was created')
         ->html('<p>This is your Identifier</p>'.$entityInstance->getEmail().'Your password'.$entityInstance->getPassword());
         $mailer->send($email);
     }

@@ -49,6 +49,9 @@ class Study
     #[ORM\OneToMany(mappedBy: 'study', targetEntity: Order::class)]
     private $orders;
 
+    #[ORM\JoinColumn(nullable: false)]
+    private $compagny;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -205,6 +208,18 @@ class Study
                 $order->setStudy(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompagny(): ?Compagny
+    {
+        return $this->compagny;
+    }
+
+    public function setCompagny(?Compagny $compagny): self
+    {
+        $this->compagny = $compagny;
 
         return $this;
     }

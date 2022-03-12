@@ -16,8 +16,6 @@ class Compagny
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $name;
 
-    #[ORM\OneToOne(mappedBy: 'compagny', targetEntity: User::class, cascade: ['persist', 'remove'])]
-    private $owner;
 
     public function getId(): ?int
     {
@@ -36,25 +34,4 @@ class Compagny
         return $this;
     }
 
-    public function getOwner(): ?User
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(?User $owner): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($owner === null && $this->owner !== null) {
-            $this->owner->setCompagny(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($owner !== null && $owner->getCompagny() !== $this) {
-            $owner->setCompagny($this);
-        }
-
-        $this->owner = $owner;
-
-        return $this;
-    }
 }

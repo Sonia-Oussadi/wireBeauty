@@ -11,11 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\Routing\Annotation\Route;
 
-
+#[Route('/user')]
 class UserStudyController extends AbstractController 
 {
     
-    #[Route('/user/study', name: 'user_study')]
+    #[Route('/study', name: 'user_study')]
     public function study(StudyRepository $studyRepository,UserRepository $userRepository): Response
     {
         $user = $this->getUser()->getUserIdentifier();
@@ -25,16 +25,5 @@ class UserStudyController extends AbstractController
         ]);
     }
 
-    #[Route('/user/bills', name: 'user_study')]
-    public function bills(BillRepository $billRepository): Response
-    {
-        $bills = $billRepository->findUserBills($this->getUser());
-        return $this->render('user/studies/listBills.html.twig',[
-            'bills' =>$bills
-        ]);
-    }
-
-    
-    
 
 }
