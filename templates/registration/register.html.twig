@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+    <body>
+
+    <!-- CONTENT -->
+    <section>
+        <div class="container d-flex flex-column">
+            <div class="row align-items-center justify-content-center gx-0 min-vh-100">
+                <div class="col-12 col-md-6 col-lg-4 py-8 py-md-11">
+                    <!-- Heading -->
+                    <h1 class="mb-0 fw-bold">
+                        Sign up
+                    </h1>
+
+                    <!-- Text -->
+                    <p class="mb-6 text-muted">
+                        Simplify your workflow in minutes.
+                    </p>
+
+                    <!-- Form -->
+                    <form class="mb-6">
+                        {{ form_start(registrationForm) }}
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label class="form-label" for="email">
+                                {{ form_label(registrationForm.email) }}
+                            </label>
+                            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
+                        <!-- FirstName -->
+                        <div class="form-group">
+                            <label class="form-label" for="name">
+                                {{ form_label(registrationForm.firstName) }}
+                            </label>
+                            {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
+                        <!-- LastName -->
+                        <div class="form-group">
+                            <label class="form-label" for="name">
+                                {{ form_label(registrationForm.lastName) }}
+                            </label>
+                            {{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group mb-5">
+                            <label>
+                                Mot de passe:
+                            </label>
+                            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
+                        <div class="form-group mb-8">
+                            {{ form_row(registrationForm.agreeTerms) }}
+                        </div>
+                        {{ form_end(registrationForm) }}
+
+                    </form>
+                    <!-- Text -->
+
+                </div>
+                <div class="col-lg-7 offset-lg-1 align-self-stretch d-none d-lg-block">
+
+                    <!-- Image -->
+                    <div class="h-100 w-cover bg-cover"
+                         style="background-image: url(https://picsum.photos/1000/1384);"></div>
+
+                    <!-- Shape -->
+                    <div class="shape shape-start shape-fluid-y text-white">
+                        <svg viewBox="0 0 100 1544" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h100v386l-50 772v386H0V0z" fill="currentColor"/>
+                        </svg>
+                    </div>
+
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <!-- Map JS -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+
+    <!-- Vendor JS -->
+    <script src="./assets/js/vendor.bundle.js"></script>
+
+    <!-- Theme JS -->
+    <script src="./assets/js/theme.bundle.js"></script>
+
+    </body>
+{% endblock %}
