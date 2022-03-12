@@ -45,22 +45,20 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Article[] Returns an array of Article objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+     * @return Article Returns an array of Article objects
+    */
+    
+    public function findById($value)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
+            ->andWhere('a.id = :val')
             ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult();
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Article
