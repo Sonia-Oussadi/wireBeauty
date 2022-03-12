@@ -19,6 +19,9 @@ class Compagny
     #[ORM\OneToOne(mappedBy: 'compagny', targetEntity: User::class, cascade: ['persist', 'remove'])]
     private $owner;
 
+    #[ORM\OneToOne(mappedBy: 'compagny', targetEntity: Study::class, cascade: ['persist', 'remove'])]
+    private $study;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,6 +57,28 @@ class Compagny
         }
 
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getStudy(): ?Study
+    {
+        return $this->study;
+    }
+
+    public function setStudy(?Study $study): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($study === null && $this->study !== null) {
+            $this->study->setCompagny(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($study !== null && $study->getCompagny() !== $this) {
+            $study->setCompagny($this);
+        }
+
+        $this->study = $study;
 
         return $this;
     }
