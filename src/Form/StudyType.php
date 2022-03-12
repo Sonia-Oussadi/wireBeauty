@@ -17,7 +17,7 @@ class StudyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-         /*    ->add('name', TextType::class, [
+             ->add('name', TextType::class, [
                 'required' => true
             ])
             ->add('private')
@@ -44,7 +44,7 @@ class StudyType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'mapped' => false,
-            ]) */
+            ]) 
             ->add('file', FileType::class, [
                 'label' => 'Fichier XLS',
 
