@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Studies
+{% endblock %}
+
+{% block body %}
+
+	{% for study in studies %}
+		<div>
+			<h2 class="text-center">{{study.name}}</h2>
+			<p>
+				{{study.path}}
+			</p>
+			<p>crée le :</p>
+			<p>
+				{{study.created_at|date('m/d/Y')}}
+				à
+				{{study.created_at|date('H:i')}}
+			</p>
+			<p>Modifiée le  :</p>
+			<p>
+				{{study.updated_at|date('m/d/Y')}}
+				à
+				{{study.updated_at|date('H:i')}}
+			</p>
+			<p>
+				l'etude à été faite par :
+				{{study.getCreator().getFirstname()}}
+				{{study.getCreator().getLastname()}}
+			</p>
+		</div>
+		<a href="user_bills">Voir mes factures</a>
+	{% endfor %}
+
+{% endblock %}
