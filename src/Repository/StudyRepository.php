@@ -45,22 +45,20 @@ class StudyRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Study[] Returns an array of Study objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Study[] Returns an array of Study objects
+      */
+    
+    public function findUserStudies($value)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
+            ->andWhere('s.buyer = :val')
             ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Study

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bills
+{% endblock %}
+
+{% block body %}
+
+{% for bill in bills %}
+	<div>
+		<p>{{bill.number}}</p>
+	</h2>
+	<p>
+		{{bill.getOwner().getFirstname()}},{{bill.getOwner().getLastname()}}
+	</p>
+	<p>{{bill.total}}</p>
+	<p>crée le :</p>
+	<p>
+		{{bill.created_at|date('m/d/Y')}}
+		à
+		{{bill.created_at|date('H:i')}}
+	</p>
+	<p>
+		l'etude à été faite par :
+		{{study.getCreator().getFirstname()}}
+		{{study.getCreator().getLastname()}}
+	</p>
+</div>{% endfor %}{% endblock %}

@@ -49,7 +49,6 @@ class Study
     #[ORM\OneToMany(mappedBy: 'study', targetEntity: Order::class)]
     private $orders;
 
-    #[ORM\OneToOne(inversedBy: 'study', targetEntity: Compagny::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private $compagny;
 

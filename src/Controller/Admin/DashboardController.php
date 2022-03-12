@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
 use App\Entity\Study;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -11,18 +12,25 @@ use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use PHPUnit\TextUI\XmlConfiguration\File;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use PhpParser\Node\Expr\Yield_;
+use Symfony\Bundle\MakerBundle\Security\UserClassBuilder;
+
 #[Route('/admin')]
+
 class DashboardController extends AbstractDashboardController
 {
 
-    #[Route('/')]
+    #[Route('/', 'admin')]
     public function index(): Response
     {
-        // return parent::index();
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
-        return $this->redirectToRoute('dashboard_studies', [], Response::HTTP_SEE_OTHER);
+        //return parent::index();
+        // return $this->redirectToRoute('dashboard_studies', [], Response::HTTP_SEE_OTHER);
+
+        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+        return $this->redirect($adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
 
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //
@@ -43,6 +51,13 @@ class DashboardController extends AbstractDashboardController
         return $this->redirect($adminUrlGenerator->setController(StudyCrudController::class)->generateUrl());
     }
 
+    #[Route('/users', name: 'dashboard_users')]
+    public function showUsers(): Response
+    {
+        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+        return $this->redirect($adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
+    }
+    
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
@@ -57,10 +72,18 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
 
             MenuItem::section('Study'),
-                MenuItem::linkToCrud('Studies', 'fa fa-tags', Study::class),
-                MenuItem::linkToRoute('Generate Study', 'fa fa-tags', 'app_new_study')
-        ];
+                MenuItem::linkToCrud('Studies', 'fa fa-solid fa-file', Study::class),
+                MenuItem::linkToRoute('Generate Study', 'fa fa-solid fa-gear', 'app_new_study'),
 
+            MenuItem::section(),
+            MenuItem::linkToCrud('Users', 'fa fa-solid fa-users',User::class),
+                MenuItem::linkToRoute('Account Settings','fa fa-solid fa-gear','user_profil'),
+            MenuItem::section(),
+            MenuItem::section(),
+
+                MenuItem::linkToRoute('Wired Beauty Website', 'fa fa-tablet','app_home'),
+
+        ];
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
