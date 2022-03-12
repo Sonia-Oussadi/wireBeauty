@@ -4,8 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Study;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -48,7 +46,7 @@ class StudyRepository extends ServiceEntityRepository
      /**
       * @return Study[] Returns an array of Study objects
       */
-    
+
     public function findUserStudies($value)
     {
         return $this->createQueryBuilder('s')
@@ -58,7 +56,7 @@ class StudyRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    
+
 
     /*
     public function findOneBySomeField($value): ?Study
