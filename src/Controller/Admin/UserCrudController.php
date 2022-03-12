@@ -74,7 +74,8 @@ class UserCrudController extends AbstractCrudController
 {
     return [
         EmailField:: new('email'),
-        TextField::new('password'),
+        TextField::new('password')
+        ->hideOnIndex(),
         TextField:: new('firstName'),
         TextField:: new('lastName'),
         TextField::new('compagny'),
