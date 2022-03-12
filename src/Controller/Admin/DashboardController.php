@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Article;
 use App\Entity\User;
 use App\Entity\Study;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -81,6 +82,9 @@ class DashboardController extends AbstractDashboardController
             MenuItem::section(),
 
                 MenuItem::linkToRoute('Wired Beauty Website', 'fa fa-tablet','app_home'),
+            MenuItem::section(),
+                MenuItem::linkToCrud('Articles','',Article::class),
+                MenuItem::linkToCrud('categories','',Category::class)
 
         ];
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);

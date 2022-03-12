@@ -25,13 +25,5 @@ class UserStudyController extends AbstractController
         ]);
     }
 
-    #[Route('/bills', name: 'user_bill')]
-    public function bills(BillRepository $billRepository): Response
-    {
-        $bills = $billRepository->findUserBills($this->getUser());
-        return $this->render('user/studies/listBills.html.twig',[
-            'bills' =>$bills
-        ]);
-    }
 
 }

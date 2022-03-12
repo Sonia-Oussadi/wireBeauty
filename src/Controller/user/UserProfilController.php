@@ -13,10 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[IsGranted('ROLE_USER')]
-class UserProfileController extends AbstractController 
+#[Route('/user')]
+
+class UserProfilController extends AbstractController 
 {
     
-    #[Route('/user/profil', name: 'user_profil')]
+    #[Route('/profil', name: 'user_profil')]
     public function index(): Response
     {
         return $this->render('user/profil/profil.html.twig', [
@@ -24,7 +26,7 @@ class UserProfileController extends AbstractController
     }
 
     
-    #[Route('/user/profil/edit', name: 'user_profil_edit')] 
+    #[Route('/profil/edit', name: 'user_profil_edit')] 
     public function editProfile(Request $request,EntityManagerInterface $entityManager) 
     {
         $user = $this->getUser();
@@ -46,7 +48,7 @@ class UserProfileController extends AbstractController
         ]);
     }
 
-    #[Route('/user/pass/edit', name: 'user_pass_edit')]
+    #[Route('/pass/edit', name: 'user_pass_edit')]
     public function editPass(Request $request, UserPasswordHasherInterface $passwordEncoder,EntityManagerInterface $entityManager,UserRepository $userRepository) 
     {
         if($request->isMethod('POST')){

@@ -6,30 +6,37 @@
 {% block body %}
 
 	{% for study in studies %}
-		<div>
-			<h2 class="text-center">{{study.name}}</h2>
-			<p>
-			<a href="{{ path('app_view_study', { id: study.id }) }}"> {{study.path}} </a>
-			</p>
-			<p>crée le :</p>
-			<p>
-				{{study.created_at|date('m/d/Y')}}
-				à
-				{{study.created_at|date('H:i')}}
-			</p>
-			<p>Modifiée le  :</p>
-			<p>
-				{{study.updated_at|date('m/d/Y')}}
-				à
-				{{study.updated_at|date('H:i')}}
-			</p>
-			<p>
-				l'etude à été faite par :
-				{{study.getCreator().getFirstname()}}
-				{{study.getCreator().getLastname()}}
-			</p>
+		<div class="container">
+			<div class="grid mt-5 shadow rounded border-5 pt-2 active pb-0 px-3">
+				<h2 class="text-center">{{study.name}}</h2>
+				<p>Telecharger Votre étude en cliquant sur ce lien :
+					<a href="{{ path('app_view_study', { id: study.id }) }}">
+						{{study.path}}
+					</a>
+				</p>
+				{# <p>crée le :</p>
+																						<p>
+																							{{study.created_at|date('m/d/Y')}}
+																							à
+																							{{study.created_at|date('H:i')}}
+																						</p>
+																						<p>Modifiée le  :</p>
+																						<p>
+																							{{study.updated_at|date('m/d/Y')}}
+																							à
+																							{{study.updated_at|date('H:i')}}
+																						</p> #}
+				<p>Le prix de l'étude :
+					{{study.price}}
+					€</p>
+				<p>
+					l'etude à été faite par :
+					{{study.getCreator().getFirstname()}}
+					{{study.getCreator().getLastname()}}
+				</p>
+			</div>
 		</div>
-		<a href="{{path('user_bill')}}">Voir ma facture</a>
+
 	{% endfor %}
 
 {% endblock %}
