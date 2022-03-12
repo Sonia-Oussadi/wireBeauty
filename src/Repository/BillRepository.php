@@ -45,22 +45,20 @@ class BillRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Bill[] Returns an array of Bill objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Bill[] Returns an array of Bill objects
+      */
+    
+    public function findUserBills($value)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
+            ->andWhere('b.owner = :val')
             ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Bill

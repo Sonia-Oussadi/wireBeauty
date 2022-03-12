@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modification du mot de passe de
+	{{ app.user.FirstName }}
+	{{ app.user.LastName }}
+{% endblock %}
+
+{% block body %}
+	<div class="grix xs4 container">
+
+		<div class="mx-auto vh-100 row align-items-center" style="width: 700px;">
+			<div class="card shadow rounded">
+				<div class="card-body flex flex-column">
+					{% for message in app.flashes('error') %}
+						<div class="col-xs4">
+							<div class="alert alert-danger" role="alert">{{message}}</div>
+						</div>
+					{% endfor %}
+					<div class="col-xs4">
+						<h1>Modifier le mot de passe
+						</h1>
+						<form method="post">
+							<div class="form-field">
+								<label for="pass">Mot de passe</label>
+								<input type="password" id="pass" name="pass" class="form-control" minlength="6" required>
+							</div>
+							<br>
+							<div class="form-field">
+								<label for="pass1">Confirmer le mot de passe</label>
+								<input type="password" id="pass1" name="pass1" class="form-control" minlength="6" required>
+							</div>
+							<br>
+							<div class="text-center row gx-3 mb-3">
+								<div class="col-md-3">
+									<button class="btn btn-primary mt-2">Valider</button>
+								</div>
+								<div class="col-md-3">
+									<a class="btn btn-primary mt-2" href="{{path('user_profil')}}">Annuler
+									</a>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
