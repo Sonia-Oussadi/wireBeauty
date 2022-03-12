@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 #[Route('/study')]
 
@@ -64,31 +65,81 @@ class StudyController extends AbstractController
         $form = $this->createForm(StudyType::class, $study);
         $form->handleRequest($request);
 
-        /* TEMP */
-        if ($form->get('file')) {
-            $file = $form->get('file')->getData();
-            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file->getPathName());
+        if ($form->isSubmitted()) {
+            /* TEMP */
+            if ($form->get('file')) {
+                $file = $form->get('file')->getData();
+                $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file->getPathName());
 
-            /* Hydratation */
+                /* Legends */
 
-            $tabLegends = $spreadsheet->getSheetByName('légende');
+                $tabLegends = $spreadsheet->getSheetByName('légende');
+                $highestColumn = $tabLegends->getHighestColumn(); // e.g 'F'
+
+                $highestColumnIndex = Coordinate::columnIndexFromString($highestColumn); // e.g. 5
+
+                $products = [];
+
+                for ($col = 1; $col <= $highestColumnIndex; ++$col) {
+
+                    $value = $tabLegends->getCellByColumnAndRow($col, 1)->getValue();
+                    switch ($value) {
+
+                        case 'value_product_code':
+
+                            $row = 2;
+
+                            for ($row; $row < 4; $row++) {
+                                dump($row);
+                                dump($tabLegends->getCellByColumnAndRow($col + 1, $row)->getValue());
+                                $products[$tabLegends->getCellByColumnAndRow($col, $row)->getValue()] = $tabLegends->getCellByColumnAndRow($col + 1, $row)->getValue();
+                            }
+                            dump($products);
+
+                            break;
+                        case 'score_skinbiosense':
+
+                            $row = 2;
+
+                            for ($row; $row < 4; $row++) {
+                                dump($row);
+                                dump($tabLegends->getCellByColumnAndRow($col + 1, $row)->getValue());
+                                $score_skinbiosense[$tabLegends->getCellByColumnAndRow($col, $row)->getValue()] = $tabLegends->getCellByColumnAndRow($col + 1, $row)->getValue();
+                            }
+                            dump($score_skinbiosense);
+
+                            break;
+
+                        case 'score_skinbosense':
+
+                            $row = 2;
+
+                            for ($row; $row < 4; $row++) {
+                                dump($row);
+                                dump($tabLegends->getCellByColumnAndRow($col + 1, $row)->getValue());
+                                $score_skinbiosense[$tabLegends->getCellByColumnAndRow($col, $row)->getValue()] = $tabLegends->getCellByColumnAndRow($col + 1, $row)->getValue();
+                            }
+                            dump($score_skinbiosense);
+
+                            break;
+                    }
+
+                    dump($tabLegends->getHighestColumn());
+
+                    dd('end');
+                }
+                /* TEMP */
+            }
 
 
-            dd('end');
+           
         }
-        /* TEMP */
 
         if ($form->isSubmitted() && $form->isValid()) {
             dump("form valid");
             $studyRepository->add($study);
             return $this->redirectToRoute('dashboard_studies', [], Response::HTTP_SEE_OTHER);
-
-        }elseif($form->isSubmitted() ) {
-
-            dump("not good");
-            dd($request);
         }
-
         return $this->renderForm('admin/new_study.html.twig', [
             'study' => $study,
             'form' => $form,

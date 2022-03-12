@@ -16,7 +16,6 @@ use PhpParser\Node\Expr\Yield_;
 use Symfony\Bundle\MakerBundle\Security\UserClassBuilder;
 
 #[Route('/admin')]
-
 class DashboardController extends AbstractDashboardController
 {
 
