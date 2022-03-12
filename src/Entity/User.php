@@ -65,7 +65,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Bill::class)]
     private $bills;
 
-    #[ORM\OneToOne(inversedBy: 'owner', targetEntity: Compagny::class, cascade: ['persist', 'remove'])]
+    #[ORM\Column(type: 'string', nullable: true)]
     private $compagny;
 
     public function __construct()
@@ -74,13 +74,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->bills = new ArrayCollection();
     }
 
-    // #[ORM\OneToMany(targetEntity: Study::class, mappedBy: "User")]
-    // private $studies;
-
-    // public function __construct()
-    // {
-    //     $this->studies = new ArrayCollection();
-    // }
 
     public function getId(): ?int
     {
@@ -225,13 +218,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    // /**
-    //  * @return Collection|Study[]
-    //  */
-    // public function getStudies(): Collection
-    // {
-    //     return $this->studies;
-    // }
 
     public function getDeletedAt(): ?\DateTimeImmutable
     {
@@ -329,12 +315,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCompagny(): ?Compagny
+    public function getCompagny(): ?string
     {
         return $this->compagny;
     }
 
-    public function setCompagny(?Compagny $compagny): self
+    public function setCompagny(string $compagny): self
     {
         $this->compagny = $compagny;
 
