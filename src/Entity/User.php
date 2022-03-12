@@ -68,10 +68,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', nullable: true)]
     private $compagny;
 
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Comment::class)]
+    private $comments;
+
     public function __construct()
     {
         $this->studies = new ArrayCollection();
         $this->bills = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
 
@@ -323,6 +327,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCompagny(string $compagny): self
     {
         $this->compagny = $compagny;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comments>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getOwner() === $this) {
+                $comment->setOwner(null);
+            }
+        }
 
         return $this;
     }
