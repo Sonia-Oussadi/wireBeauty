@@ -17,6 +17,13 @@ class HomeController extends AbstractController
         ]);
     }
 
+    #[Route('/', name: 'index')]
+    public function home(): Response
+    {
+        return $this->redirectToRoute('home');
+    }
+
+
     #[Route('/about', name: 'app_about')]
     public function about(): Response
     {
