@@ -66,7 +66,7 @@ class UserCrudController extends AbstractCrudController
         $entityInstance->setPassword($encoder);
         $entityInstance->setCreatedAt(new DateTimeImmutable());
         $entityInstance->setUpdatedAt(new DateTimeImmutable());
-        $this->sendEmail($this->mailer,$entityInstance);
+//        $this->sendEmail($this->mailer,$entityInstance);
         parent::persistEntity($entityManager,$entityInstance);
     }
 
@@ -79,7 +79,7 @@ class UserCrudController extends AbstractCrudController
         TextField:: new('lastName'),
         TextField::new('compagny'),
         CountryField::new('country'),
-        ImageField::new('profile_picture')->setUploadDir('public/img'),
+//        ImageField::new('profile_picture')->setUploadDir('public/img'),
         ChoiceField::new('Roles')->allowMultipleChoices()->setChoices(["ADMIN"=>"ROLE_ADMIN","PROFESSIONNEL"=>"ROLE_PRO"]),
         BooleanField::new('actif'),
         BooleanField::new('newsletter')
