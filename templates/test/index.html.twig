@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>
+			{% block title %}Wired Beauty
+			{% endblock %}
+		</title>
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body>
+
+        <h1>Hydratation</h1>
+        <h2>SKC</h2>
+{{ render_chart(hydratantfirstProduct) }}
+        <h2>VITC</h2>
+{{ render_chart(hydratantsecondProduct) }}
+
+        <h1>AntiOxydant</h1>
+
+        <h2>SKC</h2>
+{{ render_chart(oxydantfirstProduct) }}
+        <h2>VITC</h2>
+{{ render_chart(oxydantsecondProduct) }}
+
+        <h1>Barriere</h1>
+        <h2>SKC</h2>
+
+{{ render_chart(barrierefirstProduct) }}
+        <h2>VITC</h2>
+{{ render_chart(barrieresecondProduct) }}
+    </body>
+</html>
