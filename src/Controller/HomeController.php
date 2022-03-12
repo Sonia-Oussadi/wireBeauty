@@ -32,7 +32,7 @@ class HomeController extends AbstractController
     #[Route('/services', name: 'app_services')]
     public function us(): Response
     {
-        return $this->render('home/us.html.twig');
+        return $this->render('home/services.html.twig');
     }
 
     #[Route('/contact', name: 'app_contact')]

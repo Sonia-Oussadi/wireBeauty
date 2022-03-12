@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use App\Form\AddToCartType;
+use App\Manager\CartManager;
 
 #[Route('/study')]
 
@@ -23,6 +25,35 @@ class StudyController extends AbstractController
     {
         return $this->render('study/index.html.twig', [
             'controller_name' => 'StudyController',
+        ]);
+    }
+
+    /**
+     * @Route("/shop/{id}", name="shop.detail")
+     */
+    public function shop(Study $study, Request $request, CartManager $cartManager): Response
+    {
+        $form = $this->createForm(AddToCartType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $item = $form->getData();
+            $item->setProduct($study);
+
+            $cart = $cartManager->getCurrentCart();
+            $cart
+                ->addItem($item)
+                ->setUpdatedAt(new \DateTimeImmutable());
+
+            $cartManager->save($cart);
+
+            return $this->redirectToRoute('shop.detail', ['id' => $study->getId()]);
+        }
+
+        return $this->render('product/detail.html.twig', [
+            'study' => $study,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -130,8 +161,6 @@ class StudyController extends AbstractController
                 }
                 /* TEMP */
             }
-
-
            
         }
 
@@ -140,9 +169,11 @@ class StudyController extends AbstractController
             $studyRepository->add($study);
             return $this->redirectToRoute('dashboard_studies', [], Response::HTTP_SEE_OTHER);
         }
+
         return $this->renderForm('admin/new_study.html.twig', [
             'study' => $study,
-            'form' => $form,
+            'form' => $form
         ]);
+
     }
 }

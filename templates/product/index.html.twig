@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Studies{% endblock %}
+
+{% block body %}
+    <div class="bg-light p-3">
+        <h1>Studies</h1>
+    </div>
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col-4 mt-4">
+                <div class="border border-dark rounded p-2 clearfix">
+                    <h2>
+                        {{ product.name }}
+                        -
+                        {{ product.price }}
+                        $
+                    </h2>
+                    <img class="img-fluid rounded" src="{{ product.image }}">
+                    <hr>
+                    <a href="{{ path('cart',{'id': product.id}) }}" class="btn btn-success float-right">
+                        <i class="fas fa-shopping-cart mr-1"></i>
+                        Add
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
