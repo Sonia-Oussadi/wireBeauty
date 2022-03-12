@@ -16,23 +16,8 @@ class Compagny
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $name;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $mail;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $password;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $country;
-
-    #[ORM\Column(type: 'json', nullable: true)]
-    private $role = [];
-
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    private $created_at;
-
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    private $updated_at;
+    #[ORM\OneToOne(mappedBy: 'compagny', targetEntity: User::class, cascade: ['persist', 'remove'])]
+    private $owner;
 
     public function getId(): ?int
     {
@@ -51,74 +36,24 @@ class Compagny
         return $this;
     }
 
-    public function getMail(): ?string
+    public function getOwner(): ?User
     {
-        return $this->mail;
+        return $this->owner;
     }
 
-    public function setMail(?string $mail): self
+    public function setOwner(?User $owner): self
     {
-        $this->mail = $mail;
+        // unset the owning side of the relation if necessary
+        if ($owner === null && $this->owner !== null) {
+            $this->owner->setCompagny(null);
+        }
 
-        return $this;
-    }
+        // set the owning side of the relation if necessary
+        if ($owner !== null && $owner->getCompagny() !== $this) {
+            $owner->setCompagny($this);
+        }
 
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(?string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?string $country): self
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    public function getRole(): ?array
-    {
-        return $this->role;
-    }
-
-    public function setRole(?array $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(?\DateTimeImmutable $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
-    {
-        $this->updated_at = $updated_at;
+        $this->owner = $owner;
 
         return $this;
     }

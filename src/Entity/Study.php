@@ -35,7 +35,7 @@ class Study
 
     #[ORM\OneToOne(targetEntity: User::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private $id_user;
+    private $creator;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $logo;
@@ -44,9 +44,9 @@ class Study
     private $price;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'studies')]
-    private $user_id;
+    private $buyer;
 
-    #[ORM\OneToMany(mappedBy: 'study_id', targetEntity: Order::class)]
+    #[ORM\OneToMany(mappedBy: 'study', targetEntity: Order::class)]
     private $orders;
 
     public function __construct()
@@ -131,14 +131,14 @@ class Study
         return $this;
     }
 
-    public function getIdUser(): ?User
+    public function getCreator(): ?User
     {
-        return $this->id_user;
+        return $this->creator;
     }
 
-    public function setIdUser(?User $id_user): self
+    public function setCreator(?User $creator): self
     {
-        $this->id_user = $id_user;
+        $this->creator = $creator;
 
         return $this;
     }
@@ -167,14 +167,14 @@ class Study
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getBuyer(): ?User
     {
-        return $this->user_id;
+        return $this->buyer;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setBuyer(?User $buyer): self
     {
-        $this->user_id = $user_id;
+        $this->buyer = $buyer;
 
         return $this;
     }
@@ -191,7 +191,7 @@ class Study
     {
         if (!$this->orders->contains($order)) {
             $this->orders[] = $order;
-            $order->setStudyId($this);
+            $order->setStudy($this);
         }
 
         return $this;
@@ -201,8 +201,8 @@ class Study
     {
         if ($this->orders->removeElement($order)) {
             // set the owning side to null (unless already changed)
-            if ($order->getStudyId() === $this) {
-                $order->setStudyId(null);
+            if ($order->getStudy() === $this) {
+                $order->setStudy(null);
             }
         }
 
