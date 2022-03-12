@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CartController extends AbstractController
 {
     /**
-     * @Route("/cart", name="cart")
+     * @Route("/cart", name="app_cart")
      */
     public function index(CartManager $cartManager, Request $request): Response
     {
@@ -25,7 +25,7 @@ class CartController extends AbstractController
             $cart->setUpdatedAt(new \DateTime());
             $cartManager->save($cart);
 
-            return $this->redirectToRoute('cart');
+            return $this->redirectToRoute('app_cart');
         }
 
         return $this->render('cart/index.html.twig', [
