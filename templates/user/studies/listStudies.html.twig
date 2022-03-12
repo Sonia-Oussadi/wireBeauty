@@ -9,7 +9,7 @@
 		<div>
 			<h2 class="text-center">{{study.name}}</h2>
 			<p>
-				{{study.path}}
+			<a href="{{ path('app_view_study', { id: study.id }) }}"> {{study.path}} </a>
 			</p>
 			<p>crée le :</p>
 			<p>
@@ -29,7 +29,7 @@
 				{{study.getCreator().getLastname()}}
 			</p>
 		</div>
-		<a href="user_bills">Voir mes factures</a>
+		<a href="{{path('user_bill')}}">Voir ma facture</a>
 	{% endfor %}
 
 {% endblock %}
